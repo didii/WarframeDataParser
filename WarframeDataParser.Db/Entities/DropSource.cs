@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 
 namespace WarframeDataParser.Db.Entities {
@@ -13,5 +14,7 @@ namespace WarframeDataParser.Db.Entities {
         public long DropSourceTypeId { get; set; }
 
         public DropSourceType DropSourceType { get; set; }
+
+        public ICollection<RewardDrop> RewardDrops { get; set; }
     }
 }

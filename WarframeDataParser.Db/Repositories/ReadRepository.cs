@@ -26,6 +26,11 @@ namespace WarframeDataParser.Db.Repositories {
         }
 
         /// <inheritdoc />
+        public TEntity Query(Func<IQueryable<TEntity>, TEntity> query) {
+            return query(_set.AsQueryable());
+        }
+
+        /// <inheritdoc />
         public IEnumerable<TEntity> Query(Func<IQueryable<TEntity>,IQueryable<TEntity>> query) {
             return query(_set.AsQueryable()).ToArray();
         }

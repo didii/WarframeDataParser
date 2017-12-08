@@ -146,8 +146,11 @@
   <ItemGroup>
     <Compile Include="AutomapperProfile.cs" />
     <Compile Include="Dtos\DtoBase.cs" />
+    <Compile Include="Dtos\MissionDto.cs" />
+    <Compile Include="Dtos\RewardDto.cs" />
     <Compile Include="IModelValidator.cs" />
     <Compile Include="ModelValidator.cs" />
+    <Compile Include="Parsers\RewardParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusinessModelValidationException.cs" />
     <Compile Include="Services\CreateService.cs" />

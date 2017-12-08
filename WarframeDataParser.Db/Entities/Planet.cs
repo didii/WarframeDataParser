@@ -10,24 +10,5 @@ namespace WarframeDataParser.Db.Entities {
         public string Name { get; set; }
 
         public ICollection<Mission> Missions { get; set; }
-
-        #region Equality
-        /// <inheritdoc />
-        public override bool Equals(object obj) {
-            if (!(obj is Planet planet))
-                return false;
-            return Name == planet.Name;
-        }
-
-        protected bool Equals(Planet other) {
-            return string.Equals(Name, other.Name);
-        }
-
-        /// <inheritdoc />
-        public override int GetHashCode() {
-            return Name != null ? Name.GetHashCode() : 0;
-        }
-        #endregion
-
     }
 }

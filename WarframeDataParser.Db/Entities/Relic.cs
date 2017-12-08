@@ -12,26 +12,6 @@ namespace WarframeDataParser.Db.Entities {
 
         public RelicState RelicState { get; set; }
 
-        public ICollection<Reward> Rewards { get; set; }
-
-        #region Equality
-
-        /// <inheritdoc />
-        public override bool Equals(object obj) {
-            return base.Equals(obj) && Equals(RelicTier, (obj as Relic)?.RelicTier);
-        }
-
-        protected bool Equals(Relic other) {
-            return base.Equals(other) && Equals(RelicTier, other.RelicTier);
-        }
-
-        /// <inheritdoc />
-        public override int GetHashCode() {
-            unchecked {
-                return (base.GetHashCode() * 397) ^ (RelicTier != null ? RelicTier.GetHashCode() : 0);
-            }
-        }
-
-        #endregion
+        public ICollection<RewardDrop> RewardDrops { get; set; }
     }
 }

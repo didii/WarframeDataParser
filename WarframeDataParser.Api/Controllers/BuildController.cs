@@ -22,7 +22,7 @@ namespace WarframeDataParser.Api.Controllers {
 
 
         public IActionResult Check() {
-            
+            throw new NotImplementedException();
         }
     }
 }

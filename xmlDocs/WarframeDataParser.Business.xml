@@ -40,6 +40,9 @@
         <member name="M:WarframeDataParser.Business.Services.GetService`2.GetAll">
             <inheritdoc />
         </member>
+        <member name="M:WarframeDataParser.Business.Services.GetService`2.Get(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})">
+            <inheritdoc />
+        </member>
         <member name="M:WarframeDataParser.Business.Services.PatchService`3.#ctor(AutoMapper.IMapper,WarframeDataParser.Db.Repositories.IReadRepository{`2},WarframeDataParser.Db.Repositories.IWriteRepository{`2},WarframeDataParser.Business.IModelValidator{`0})">
             <inheritdoc />
         </member>

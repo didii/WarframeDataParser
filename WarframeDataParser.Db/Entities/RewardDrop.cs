@@ -15,7 +15,10 @@ namespace WarframeDataParser.Db.Entities {
 
         public double DropChance { get; set; }
 
-        public ICollection<DropSource> DropSources { get; set; }
+        public int Count { get; set; }
 
+        public Rotation Rotation { get; set; }
+
+        public ICollection<DropSource> DropSources { get; set; }
     }
 }

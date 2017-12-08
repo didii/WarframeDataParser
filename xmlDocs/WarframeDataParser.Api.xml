@@ -4,51 +4,12 @@
         <name>WarframeDataParser.Api</name>
     </assembly>
     <members>
-        <member name="M:WarframeDataParser.Api.Controllers.DtoController.#ctor(WarframeDataParser.Business.Services.IGetService{WarframeDataParser.Business.Dtos.Dto},WarframeDataParser.Business.Services.ICreateService{WarframeDataParser.Business.Dtos.Dto,WarframeDataParser.Business.Dtos.DtoCreate},WarframeDataParser.Business.Services.IUpdateService{WarframeDataParser.Business.Dtos.Dto,WarframeDataParser.Business.Dtos.DtoUpdate},WarframeDataParser.Business.Services.IPatchService{WarframeDataParser.Business.Dtos.Dto,WarframeDataParser.Business.Dtos.DtoUpdate},WarframeDataParser.Business.Services.IDeleteService{WarframeDataParser.Business.Dtos.Dto})">
-            <inheritdoc />
-        </member>
-        <member name="M:WarframeDataParser.Api.Controllers.DtoController.GetAll">
+        <member name="M:WarframeDataParser.Api.Controllers.BuildController.Build">
             <summary>
-                Gets all the objects
+            Recreates the data based on the official source
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WarframeDataParser.Api.Controllers.DtoController.Get(System.Int64)">
-            <summary>
-                Gets a single object with id <paramref name="id" />
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WarframeDataParser.Api.Controllers.DtoController.Post(WarframeDataParser.Business.Dtos.DtoCreate)">
-            <summary>
-                Creates a new object
-            </summary>
-            <param name="dto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WarframeDataParser.Api.Controllers.DtoController.Put(System.Int32,WarframeDataParser.Business.Dtos.DtoUpdate)">
-            <summary>
-                Updates an existing object with id <paramref name="id" />
-            </summary>
-            <param name="id"></param>
-            <param name="dto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WarframeDataParser.Api.Controllers.DtoController.Patch(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{WarframeDataParser.Business.Dtos.DtoUpdate})">
-            <summary>
-                Patches the object with id <paramref name="id" />
-            </summary>
-            <param name="id"></param>
-            <param name="patch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WarframeDataParser.Api.Controllers.DtoController.Delete(System.Int32)">
-            <summary>
-                Deletes the object with id <paramref name="id" />
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
+            <remarks>Source: https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html </remarks>
+            <returns>Always OK</returns>
         </member>
         <member name="M:WarframeDataParser.Api.Controllers.ReadController`1.GetAll">
             <summary>
