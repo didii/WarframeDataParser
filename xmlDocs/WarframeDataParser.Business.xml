@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WarframeDataParser.Business</name>
+    </assembly>
+    <members>
+        <member name="P:WarframeDataParser.Business.ModelValidator`1.ValidateCreate">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.ModelValidator`1.ValidateUpdate">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.ModelValidator`1.ValidateDelete">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.ModelValidator`1.ValidateForCreate(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.ModelValidator`1.ValidateForUpdate(`0,`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.ModelValidator`1.ValidateForDelete(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.BusinessModelValidationException.#ctor(WarframeDataParser.Business.ValidationInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.BusinessModelValidationException.#ctor(WarframeDataParser.Business.ValidationInfo,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Services.CreateService`3.Create(`1)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Services.DeleteService`2.Delete(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Services.GetService`2.Get(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Services.GetService`2.GetAll">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Services.PatchService`3.#ctor(AutoMapper.IMapper,WarframeDataParser.Db.Repositories.IReadRepository{`2},WarframeDataParser.Db.Repositories.IWriteRepository{`2},WarframeDataParser.Business.IModelValidator{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Services.PatchService`3.Patch(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{`1})">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Services.UpdateService`3.Update(System.Int64,`1)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
