@@ -7,7 +7,7 @@ namespace WarframeDataParser.Db.Entities {
         /// <inheritdoc />
         public long Id { get; set; }
         public string Name { get; set; }
-        public ICollection<DropSource> DropSources { get; set; }
+        public virtual ICollection<DropSource> DropSources { get; set; }
 
     }
 }

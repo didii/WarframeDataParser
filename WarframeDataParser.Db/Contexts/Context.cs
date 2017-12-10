@@ -18,7 +18,9 @@ namespace WarframeDataParser.Db.Contexts {
 
         /// <inheritdoc />
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<DropSource>().HasOptional(s => s.Relic).WithRequired();
+            modelBuilder.Entity<Reward>().HasOptional(s => s.Relic).WithRequired();
+            //base.OnModelCreating(modelBuilder);
         }
 
         /// <inheritdoc cref="DbContext.SaveChanges" />

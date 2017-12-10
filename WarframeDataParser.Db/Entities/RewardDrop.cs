@@ -11,14 +11,14 @@ namespace WarframeDataParser.Db.Entities {
         [ForeignKey(nameof(Reward))]
         public long RewardId { get; set; }
 
-        public Reward Reward { get; set; }
+        public virtual Reward Reward { get; set; }
 
         public double DropChance { get; set; }
 
         public int Count { get; set; }
 
-        public Rotation Rotation { get; set; }
+        public virtual Rotation Rotation { get; set; }
 
-        public ICollection<DropSource> DropSources { get; set; }
+        public virtual DropSource DropSources { get; set; }
     }
 }

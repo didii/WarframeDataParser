@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Diagnostics;
 
 namespace WarframeDataParser.Db.Entities {
@@ -13,8 +14,10 @@ namespace WarframeDataParser.Db.Entities {
         [ForeignKey(nameof(DropSourceType))]
         public long DropSourceTypeId { get; set; }
 
-        public DropSourceType DropSourceType { get; set; }
+        public virtual DropSourceType DropSourceType { get; set; }
 
-        public ICollection<RewardDrop> RewardDrops { get; set; }
+        public virtual ICollection<RewardDrop> RewardDrops { get; set; }
+
+        public virtual Relic Relic { get; set; }
     }
 }

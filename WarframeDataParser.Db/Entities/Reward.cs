@@ -13,8 +13,10 @@ namespace WarframeDataParser.Db.Entities {
         [ForeignKey(nameof(RewardType))]
         public long RewardTypeId { get; set; }
 
-        public RewardType RewardType { get; set; }
+        public virtual RewardType RewardType { get; set; }
 
-        public ICollection<RewardDrop> RewardDrops { get; set; }
+        public virtual ICollection<RewardDrop> RewardDrops { get; set; }
+
+        public virtual Relic Relic { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace WarframeDataParser.Db.Entities {
 
         public string Name { get; set; }
 
-        public ICollection<Reward> Rewards { get; set; }
+        public virtual ICollection<Reward> Rewards { get; set; }
     }
 }
