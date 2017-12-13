@@ -77,5 +77,10 @@ namespace WarframeDataParser.Db.Repositories {
         public void SaveChanges() {
             _writeRepo.SaveChanges();
         }
+
+        /// <inheritdoc />
+        public TEntity CreateOrGet(TEntity entity, Func<TEntity, TEntity, bool> predicate) {
+            throw new NotImplementedException();
+        }
     }
 }

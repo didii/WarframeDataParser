@@ -5,10 +5,26 @@ using WarframeDataParser.Db;
 using WarframeDataParser.Db.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WarframeDataParser.Business.Builder;
+using WarframeDataParser.Business.Fetcher;
+using WarframeDataParser.Business.Parsers;
+using WarframeDataParser.Business.Selectors;
 
 namespace WarframeDataParser.Business {
     public static class StartupExtensions {
         public static void AddBusinessServices(this IServiceCollection services, IConfiguration configuration) {
+            // Fetchers
+            services.AddTransient<IDataFetcher, LocalDataFetcher>();
+
+            // Selectors
+            services.AddTransient<IRewardSelector, RewardSelector>();
+
+            // Persers
+            services.AddTransient<IRewardParser, RewardParser>();
+
+            services.AddTransient<IBuilderService, BuilderService>();
+
+            //Mapper
             services.AddTransient<IMapper>(provider => new MapperConfiguration(cfg => cfg.AddProfile<AutomapperProfile>()).CreateMapper());
 
             // TODO: define model-entity relation here

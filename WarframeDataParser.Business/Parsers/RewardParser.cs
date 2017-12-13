@@ -9,116 +9,88 @@ using WarframeDataParser.Db.Entities;
 using WarframeDataParser.Db.Repositories;
 
 namespace WarframeDataParser.Business.Parsers {
-    class RewardParser {
-        private readonly IReadWriteRepository<Reward> _repo;
-        private RewardParserInfo Info { get; } = new RewardParserInfo(new[] {
-            new RewardParserInfoItem(new Regex(@"^(Lith|Meso|Neo|Axi) [A-Z]\d Relic$"), "Relic", new Regex(@"^(Lith|Meso|Neo|Axi)"), new Regex(@"[A-Z]\d(?= Relic$)")), 
-            new RewardParserInfoItem(new Regex(@"^(\dX )?\d+ Credits Cache$"), "Credits", new Regex(@"^\d+")),
-        });
+    class RewardParser : IRewardParser {
+        private readonly IReadWriteRepository<Reward> _rewardRepository;
+        private readonly IReadWriteRepository<RewardType> _rewardTypeRepository;
+
+        public Regex CreditRegex { get; } = new Regex(@"^(\dX )?\d+ Credits Cache$");
         public Regex EndoRegex { get; } = new Regex(@"^(\d+ )?Endo$");
         public Regex RelicRegex { get; } = new Regex(@"^(Lith|Meso|Neo|Axi) [A-Z]\d Relic$");
         public Regex ResourceRegex { get; } = new Regex(@"^\d+X \D+$");
+        public Regex PrimePartRegex { get; } = new Regex(@" Prime ");
+        //public Regex WarframePartRegex { get; } = new Regex(@"Ash|Atlas|Equinox|Ember|Excalibur|Frost|Loki|Mirage|Volt|Zephyr");
 
-        public RewardParser(IReadWriteRepository<Reward> repo) {
-            _repo = repo;
+        public RewardParser(IReadWriteRepository<Reward> rewardRepository, IReadWriteRepository<RewardType> rewardTypeRepository) {
+            _rewardRepository = rewardRepository;
+            _rewardTypeRepository = rewardTypeRepository;
         }
 
-        public Reward Parse(string name, RewardParserContext context) {
-            
-        }
+        public bool Parse(string name, RewardContext context) {
+            if (string.IsNullOrWhiteSpace(name))
+                return false;
 
-        private string GetBetween(string value, char left, char right) {
-            var leftIdx = value.IndexOf(left);
-            var rightIdx = value.IndexOf(right, leftIdx + 1);
-            return value.Substring(leftIdx, rightIdx - leftIdx);
-        }
-    }
-
-    class RewardParserInfo {
-        private readonly List<RewardParserInfoItem> _items;
-
-        public IEnumerable<RewardParserInfoItem> Items => _items;
-
-        public RewardParserInfo(IEnumerable<RewardParserInfoItem> items) {
-            _items = items as List<RewardParserInfoItem> ?? items.ToList();
-        }
-
-        public RewardParserInfoResult Parse(string text) {
-            foreach (var item in _items) {
-                var result = item.Parse(text);
-                if (result != null)
-                    return result;
+            // If type not yet known
+            var reward = new Reward() {Name = name};
+            if (CreditRegex.IsMatch(reward.Name)) {
+                reward.Name = "Credits";
+                reward.RewardType = GetOrCreateRewardType("Credits");
+            } else if (EndoRegex.IsMatch(reward.Name)) {
+                reward.Name = "Endo";
+                reward.RewardType = GetOrCreateRewardType("Endo");
+            } else if (RelicRegex.IsMatch(reward.Name)) {
+                reward.Name = new Regex(@"^(Lith|Meso|Neo|Axi) [A-Z]\d").Match(reward.Name).Value;
+                reward.RewardType = GetOrCreateRewardType("Relic");
+            } else if (ResourceRegex.IsMatch(reward.Name)) {
+                reward.Name = new Regex(@"(?<=X )[a-zA-Z ]+$").Match(reward.Name).Value;
+                reward.RewardType = GetOrCreateRewardType("Resource");
+            } else if (PrimePartRegex.IsMatch(reward.Name)) {
+                reward.RewardType = GetOrCreateRewardType("Prime part");
+            } else {
+                reward.RewardType = GetOrCreateRewardType("Unknown");
             }
-            return null;
-        }
-    }
+            reward.RewardTypeId = reward.RewardType.Id;
 
-    class RewardParserInfoItem {
-        public string Type { get; set; }
-        public Regex Regex { get; }
-        public Filter NameFilter { get; }
-        public Filter Part1Filter { get; }
-        public Filter Part2Filter { get; }
-
-        public RewardParserInfoItem(Regex regex, Filter nameFilter, Filter part1Filter = null, Filter part2Filter = null) {
-            Regex = regex;
-            NameFilter = nameFilter;
-            Part1Filter = part1Filter;
-            Part2Filter = part2Filter;
+            CreateOrUpdate(reward, out var _);
+            _rewardRepository.SaveChanges();
+            return true;
         }
 
-        public RewardParserInfoResult Parse(string text) {
-            if (!Regex.IsMatch(text))
-                return null;
-            var result = new RewardParserInfoResult() {
-                Type =  Type,
-                Name = NameFilter.Select(text),
-                Part1 = Part1Filter?.Select(text),
-                Part2 = Part2Filter?.Select(text)
-            };
+        public bool CreateOrUpdate(Reward reward, out Reward newReward) {
+            var existing = _rewardRepository.Query(q => q.FirstOrDefault(r => r.Name == reward.Name));
+            if (existing == null) {
+                newReward = _rewardRepository.Add(reward);
+                return true;
+            }
+            existing.Name = reward.Name;
+            existing.RewardTypeId = reward.RewardTypeId;
+            existing.RewardType = reward.RewardType;
+            newReward = _rewardRepository.Update(existing);
+            return false;
+        }
+
+        public RewardType GetOrCreateRewardType(string typeName) {
+            var result = _rewardTypeRepository.Query(q => q.FirstOrDefault(t => t.Name == typeName));
+            if (result == null) {
+                result = _rewardTypeRepository.Add(new RewardType() {Name = typeName});
+                _rewardTypeRepository.SaveChanges();
+            }
             return result;
         }
     }
 
-    class RewardParserInfoResult {
-        public string Type { get; set; }
-        public string Name { get; set; }
-        public string Part1 { get; set; }
-        public string Part2 { get; set; }
+    class RewardContext {
+        public ICollection<RewardTypeGuess> Guesses { get; } = new List<RewardTypeGuess>();
     }
 
-    class Filter {
-        public Regex Regex { get; }
-        public string Name { get; }
+    class RewardTypeGuess {
+        public string RewardTypeName { get; set; }
+        public float Probability { get; set; }
 
-        public Filter(Regex regex) {
-            Regex = regex;
-        }
-
-        public Filter(string name) {
-            Name = name;
-        }
-
-        public string Select(string text) {
-            return Name ?? Regex?.Match(text).Value;
-        }
-
-        public static implicit operator Filter(string name) {
-            return new Filter(name);
-        }
-
-        public static implicit operator Filter(Regex regex) {
-            return new Filter(regex);
-        }
-    }
-
-    class RewardParserContext {
-        public RewardParserContext(string rewardTypeName, bool isCertain) {
+        public RewardTypeGuess(string rewardTypeName, float probablility) {
+            if (probablility < 0 || probablility > 1)
+                throw new ArgumentException("Value in [0,1] expected", nameof(probablility));
             RewardTypeName = rewardTypeName;
-            RewardTypeNameIsCertain = isCertain;
+            Probability = probablility;
         }
-
-        public string RewardTypeName { get; }
-        public bool RewardTypeNameIsCertain { get; }
     }
 }

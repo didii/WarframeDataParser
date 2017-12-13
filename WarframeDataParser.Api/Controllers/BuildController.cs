@@ -4,10 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WarframeDataParser.Business.Builder;
 
 namespace WarframeDataParser.Api.Controllers {
     [Route("build")]
     public class BuildController : Controller {
+        private readonly IBuilderService _builderService;
+
+        public BuildController(IBuilderService builderService) {
+            _builderService = builderService;
+        }
 
         /// <summary>
         /// Recreates the data based on the official source
@@ -17,10 +23,11 @@ namespace WarframeDataParser.Api.Controllers {
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public IActionResult Build() {
-            return Ok();
+            var result = _builderService.Build();
+            return Ok(result);
         }
 
-
+        [HttpPost("check")]
         public IActionResult Check() {
             throw new NotImplementedException();
         }

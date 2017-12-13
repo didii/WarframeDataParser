@@ -14,6 +14,7 @@ namespace WarframeDataParser.Db.Contexts {
 
         public Context(string connectionString) : base(connectionString) {
             Initialize();
+            this.Database.CreateIfNotExists();
         }
 
         /// <inheritdoc />
