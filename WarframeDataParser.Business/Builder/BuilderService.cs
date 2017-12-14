@@ -17,10 +17,10 @@ namespace WarframeDataParser.Business.Builder {
         /// <inheritdoc />
         public int Build() {
             var doc = _fetcher.Fetch();
-            var names = _selector.Select(doc);
+            var selections = _selector.Select(doc);
             var count = 0;
-            foreach (var name in names) {
-                count += _parser.Parse(name, null) ? 1 : 0;
+            foreach (var selection in selections) {
+                count += _parser.Parse(selection) ? 1 : 0;
             }
             return count;
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using WarframeDataParser.Business.Selectors;
 using WarframeDataParser.Db.Entities;
 using WarframeDataParser.Db.Repositories;
 
@@ -16,7 +17,9 @@ namespace WarframeDataParser.Business.Parsers {
         public Regex CreditRegex { get; } = new Regex(@"^(\dX )?\d+ Credits Cache$");
         public Regex EndoRegex { get; } = new Regex(@"^(\d+ )?Endo$");
         public Regex RelicRegex { get; } = new Regex(@"^(Lith|Meso|Neo|Axi) [A-Z]\d Relic$");
-        public Regex ResourceRegex { get; } = new Regex(@"^\d+X \D+$");
+        public Regex ResourceRegex { get; } = new Regex(@"^\d+X [a-zA-Z ]+$");
+        public Regex ArcaneRegex { get; } = new Regex(@"^Arcane [a-zA-Z ]+$");
+
         public Regex PrimePartRegex { get; } = new Regex(@" Prime ");
         //public Regex WarframePartRegex { get; } = new Regex(@"Ash|Atlas|Equinox|Ember|Excalibur|Frost|Loki|Mirage|Volt|Zephyr");
 
@@ -25,12 +28,12 @@ namespace WarframeDataParser.Business.Parsers {
             _rewardTypeRepository = rewardTypeRepository;
         }
 
-        public bool Parse(string name, RewardContext context) {
-            if (string.IsNullOrWhiteSpace(name))
+        public bool Parse(IRewardSelection selection) {
+            if (string.IsNullOrWhiteSpace(selection.Name))
                 return false;
 
             // If type not yet known
-            var reward = new Reward() {Name = name};
+            var reward = new Reward() {Name = selection.Name};
             if (CreditRegex.IsMatch(reward.Name)) {
                 reward.Name = "Credits";
                 reward.RewardType = GetOrCreateRewardType("Credits");
@@ -45,8 +48,16 @@ namespace WarframeDataParser.Business.Parsers {
                 reward.RewardType = GetOrCreateRewardType("Resource");
             } else if (PrimePartRegex.IsMatch(reward.Name)) {
                 reward.RewardType = GetOrCreateRewardType("Prime part");
-            } else {
-                reward.RewardType = GetOrCreateRewardType("Unknown");
+            } else if (ArcaneRegex.IsMatch(reward.Name)) {
+                //reward.Name = new Regex(@"(?<=^Arcane )[a-zA-Z ]+$").Match(reward.Name).Value;
+                reward.RewardType = GetOrCreateRewardType("Arcane");
+            }else {
+                // No idea: use hint if available
+                if (selection.TypeName != null) {
+                    reward.RewardType = GetOrCreateRewardType(selection.TypeName);
+                } else {
+                    reward.RewardType = GetOrCreateRewardType("Unknown");
+                }
             }
             reward.RewardTypeId = reward.RewardType.Id;
 
@@ -62,8 +73,10 @@ namespace WarframeDataParser.Business.Parsers {
                 return true;
             }
             existing.Name = reward.Name;
-            existing.RewardTypeId = reward.RewardTypeId;
-            existing.RewardType = reward.RewardType;
+            if (existing.RewardType != null && existing.RewardType.Name == "Unknown") {
+                existing.RewardTypeId = reward.RewardTypeId;
+                existing.RewardType = reward.RewardType;
+            }
             newReward = _rewardRepository.Update(existing);
             return false;
         }

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+using WarframeDataParser.Business.Selectors;
 using WarframeDataParser.Db.Entities;
 
 namespace WarframeDataParser.Business.Parsers {
     interface IRewardParser {
-        bool Parse(string name, RewardContext context);
+        bool Parse(IRewardSelection selection);
     }
 }

@@ -157,6 +157,8 @@
     <Compile Include="Fetcher\DataFetcher.cs" />
     <Compile Include="Fetcher\IDataFetcher.cs" />
     <Compile Include="Fetcher\LocalDataFetcher.cs" />
+    <Compile Include="Selectors\IRewardSelection.cs" />
+    <Compile Include="Selectors\RewardSelection.cs" />
     <Compile Include="Validators\IModelValidator.cs" />
     <Compile Include="Validators\ModelValidator.cs" />
     <Compile Include="Parsers\IRewardParser.cs" />
@@ -164,7 +166,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusinessModelValidationException.cs" />
     <Compile Include="Selectors\IRewardSelector.cs" />
-    <Compile Include="Selectors\ISelector.cs" />
     <Compile Include="Selectors\RewardSelector.cs" />
     <Compile Include="Services\CreateService.cs" />
     <Compile Include="Services\DeleteService.cs" />
