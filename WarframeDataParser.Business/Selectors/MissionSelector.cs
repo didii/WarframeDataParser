@@ -11,8 +11,8 @@ namespace WarframeDataParser.Business.Selectors {
         public string XPath { get; } = @"html/body/h3[@id='missionRewards']/following-sibling::table[1]/tbody/tr[1]/th" +
                                        @"|html/body/h3[@id='missionRewards']/following-sibling::table[1]/tbody/tr[@class='blank-row']/following-sibling::tr[1]/th";
 
-        public Regex PlanetRegex { get; } = new Regex(@"^[a-zA-Z ]+(?=/.+)");
-        public Regex NameRegex { get; } = new Regex(@"(?<=/)[a-zA-Z ]+ \(.+\)");
+        public Regex PlanetRegex { get; } = new Regex(@"(?<=^Event: |^)[a-zA-Zö ]+(?=\/.+)");
+        public Regex NameRegex { get; } = new Regex(@"(?<=/)[a-zA-Z ]+(?= \(.+\))");
         public Regex TypeRegex { get; } = new Regex(@"(?<=\()[a-zA-Z ]+(?=\))");
 
         /// <inheritdoc />

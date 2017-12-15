@@ -5,7 +5,7 @@ using WarframeDataParser.Db;
 using WarframeDataParser.Db.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WarframeDataParser.Business.Builder;
+using WarframeDataParser.Business.Builders;
 using WarframeDataParser.Business.Fetcher;
 using WarframeDataParser.Business.Parsers;
 using WarframeDataParser.Business.Selectors;
@@ -14,15 +14,19 @@ namespace WarframeDataParser.Business {
     public static class StartupExtensions {
         public static void AddBusinessServices(this IServiceCollection services, IConfiguration configuration) {
             // Fetchers
-            services.AddTransient<IDataFetcher, LocalDataFetcher>();
+            services.AddScoped<IDataFetcher, LocalDataFetcher>();
 
             // Selectors
             services.AddTransient<ISelector<IRewardSelection>, RewardSelector>();
+            services.AddTransient<ISelector<IMissionSelection>, MissionSelector>();
 
-            // Persers
+            // Parsers
             services.AddTransient<IParser<IRewardSelection>, RewardParser>();
+            services.AddTransient<IParser<IMissionSelection>, MissionParser>();
 
-            services.AddTransient<IBuilderService, BuilderService>();
+            // Builders
+            services.AddTransient<IBuilder, Builder>();
+            services.AddTransient(typeof(IBuilderService<>), typeof(BuilderService<>));
 
             //Mapper
             services.AddTransient<IMapper>(provider => new MapperConfiguration(cfg => cfg.AddProfile<AutomapperProfile>()).CreateMapper());

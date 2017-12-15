@@ -1,4 +1,4 @@
-﻿namespace WarframeDataParser.Business.Builder {
+﻿namespace WarframeDataParser.Business.Builders {
     class BuilderResult : IBuilderResult {
         /// <inheritdoc />
         public int InsertedCount { get; set; }

@@ -1,27 +1,28 @@
-﻿using System;
+using System;
 using WarframeDataParser.Business.Fetcher;
 using WarframeDataParser.Business.Parsers;
 using WarframeDataParser.Business.Selectors;
 
-namespace WarframeDataParser.Business.Builder {
-    class BuilderService : IBuilderService {
-        private readonly IDataFetcher _fetcher;
-        private readonly ISelector<IRewardSelection> _selector;
-        private readonly IParser<IRewardSelection> _parser;
+namespace WarframeDataParser.Business.Builders {
+    class BuilderService<T> : IBuilderService<T> where T : ISelection {
+        protected IDataFetcher DataFetcher { get; }
+        protected ISelector<T> Selector { get; }
+        protected IParser<T> Parser { get; }
 
-        public BuilderService(IDataFetcher fetcher, ISelector<IRewardSelection> selector, IParser<IRewardSelection> parser) {
-            _fetcher = fetcher;
-            _selector = selector;
-            _parser = parser;
+        /// <inheritdoc />
+        public BuilderService(IDataFetcher dataFetcher, ISelector<T> selector, IParser<T> parser) {
+            DataFetcher = dataFetcher;
+            Selector = selector;
+            Parser = parser;
         }
 
         /// <inheritdoc />
         public IBuilderResult Build() {
-            var doc = _fetcher.Fetch();
-            var selections = _selector.Select(doc);
+            var document = DataFetcher.Fetch();
+            var selections = Selector.Select(document);
             var result = new BuilderResult();
             foreach (var selection in selections) {
-                var parseResult = _parser.Parse(selection);
+                var parseResult = Parser.Parse(selection);
                 switch (parseResult) {
                     case EParseResult.Invalid:
                         result.InsertedCount++;
@@ -40,6 +41,7 @@ namespace WarframeDataParser.Business.Builder {
                 }
             }
             return result;
+
         }
     }
 }

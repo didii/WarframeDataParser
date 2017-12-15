@@ -4,15 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WarframeDataParser.Business.Builder;
+using WarframeDataParser.Business.Builders;
 
 namespace WarframeDataParser.Api.Controllers {
     [Route("build")]
     public class BuildController : Controller {
-        private readonly IBuilderService _builderService;
+        private readonly IBuilder _builder;
 
-        public BuildController(IBuilderService builderService) {
-            _builderService = builderService;
+        public BuildController(IBuilder builder) {
+            _builder = builder;
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace WarframeDataParser.Api.Controllers {
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public IActionResult Build() {
-            var result = _builderService.Build();
+            var result = _builder.Build();
             return Ok(result);
         }
 

@@ -10,6 +10,8 @@ namespace WarframeDataParser.Business {
             CreateMap(typeof(JsonPatchDocument<>), typeof(JsonPatchDocument<>));
             CreateMap(typeof(Operation<>), typeof(Operation<>));
 
+            CreateMap<IDbItem, IDbItem>().ForMember(i => i.Id, opt => opt.Ignore());
+
             //CreateMap<Entity, Dto>();
             //CreateMap<DtoCreate, Dto>();
             //CreateMap<DtoUpdate, Dto>();

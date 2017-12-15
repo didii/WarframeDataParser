@@ -4,22 +4,28 @@
         <name>WarframeDataParser.Business</name>
     </assembly>
     <members>
-        <member name="M:WarframeDataParser.Business.Builder.BuilderService.Build">
+        <member name="M:WarframeDataParser.Business.Builders.Builder.Build">
             <inheritdoc />
         </member>
-        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.InsertedCount">
+        <member name="P:WarframeDataParser.Business.Builders.BuilderResult.InsertedCount">
             <inheritdoc />
         </member>
-        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.UpdatedCount">
+        <member name="P:WarframeDataParser.Business.Builders.BuilderResult.UpdatedCount">
             <inheritdoc />
         </member>
-        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.UnchangedCount">
+        <member name="P:WarframeDataParser.Business.Builders.BuilderResult.UnchangedCount">
             <inheritdoc />
         </member>
-        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.InvalidCount">
+        <member name="P:WarframeDataParser.Business.Builders.BuilderResult.InvalidCount">
             <inheritdoc />
         </member>
-        <member name="M:WarframeDataParser.Business.Builder.IBuilderService.Build">
+        <member name="M:WarframeDataParser.Business.Builders.BuilderService`1.#ctor(WarframeDataParser.Business.Fetcher.IDataFetcher,WarframeDataParser.Business.Selectors.ISelector{`0},WarframeDataParser.Business.Parsers.IParser{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Builders.BuilderService`1.Build">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Builders.IBuilderService`1.Build">
             <summary>
             Builds the database data and returns the amount of entries that were changed
             </summary>
@@ -29,6 +35,9 @@
             <inheritdoc />
         </member>
         <member name="M:WarframeDataParser.Business.Fetcher.LocalDataFetcher.Fetch(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Parsers.MissionParser.Parse(WarframeDataParser.Business.Selectors.IMissionSelection)">
             <inheritdoc />
         </member>
         <member name="M:WarframeDataParser.Business.Selectors.MissionSelector.Select(HtmlAgilityPack.HtmlDocument)">

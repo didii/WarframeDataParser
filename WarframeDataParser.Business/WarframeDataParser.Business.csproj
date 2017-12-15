@@ -148,10 +148,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomapperProfile.cs" />
-    <Compile Include="Builder\BuilderResult.cs" />
-    <Compile Include="Builder\BuilderService.cs" />
-    <Compile Include="Builder\IBuilderResult.cs" />
-    <Compile Include="Builder\IBuilderService.cs" />
+    <Compile Include="Builders\Builder.cs" />
+    <Compile Include="Builders\BuilderResult.cs" />
+    <Compile Include="Builders\BuilderService.cs" />
+    <Compile Include="Builders\IBuilderResult.cs" />
+    <Compile Include="Builders\IBuilderService.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Dtos\DtoBase.cs" />
     <Compile Include="Dtos\MissionDto.cs" />
@@ -161,7 +162,7 @@
     <Compile Include="Fetcher\LocalDataFetcher.cs" />
     <Compile Include="Linkers\ILinker.cs" />
     <Compile Include="Parsers\EParseResult.cs" />
-    <Compile Include="Parsers\IMissionParser.cs" />
+    <Compile Include="Parsers\MissionParser.cs" />
     <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Selectors\IMissionSelection.cs" />
     <Compile Include="Selectors\MissionSelector.cs" />

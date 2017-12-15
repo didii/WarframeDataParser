@@ -1,4 +1,4 @@
-﻿namespace WarframeDataParser.Business.Builder {
+﻿namespace WarframeDataParser.Business.Builders {
     public interface IBuilderResult {
         int InsertedCount { get; }
         int UpdatedCount { get; }
