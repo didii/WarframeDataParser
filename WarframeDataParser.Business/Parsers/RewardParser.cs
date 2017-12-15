@@ -10,7 +10,7 @@ using WarframeDataParser.Db.Entities;
 using WarframeDataParser.Db.Repositories;
 
 namespace WarframeDataParser.Business.Parsers {
-    class RewardParser : IRewardParser {
+    class RewardParser : IParser<IRewardSelection> {
         private readonly IReadWriteRepository<Reward> _rewardRepository;
         private readonly IReadWriteRepository<RewardType> _rewardTypeRepository;
 
@@ -28,9 +28,9 @@ namespace WarframeDataParser.Business.Parsers {
             _rewardTypeRepository = rewardTypeRepository;
         }
 
-        public bool Parse(IRewardSelection selection) {
+        public EParseResult Parse(IRewardSelection selection) {
             if (string.IsNullOrWhiteSpace(selection.Name))
-                return false;
+                return EParseResult.Invalid;
 
             // If type not yet known
             var reward = new Reward() {Name = selection.Name};
@@ -53,17 +53,16 @@ namespace WarframeDataParser.Business.Parsers {
                 reward.RewardType = GetOrCreateRewardType("Arcane");
             }else {
                 // No idea: use hint if available
-                if (selection.TypeName != null) {
+                if (selection.TypeName != null)
                     reward.RewardType = GetOrCreateRewardType(selection.TypeName);
-                } else {
+                else
                     reward.RewardType = GetOrCreateRewardType("Unknown");
-                }
             }
             reward.RewardTypeId = reward.RewardType.Id;
 
-            CreateOrUpdate(reward, out var _);
+            var result = CreateOrUpdate(reward, out var _) ? EParseResult.Inserted : EParseResult.Updated;
             _rewardRepository.SaveChanges();
-            return true;
+            return result;
         }
 
         public bool CreateOrUpdate(Reward reward, out Reward newReward) {

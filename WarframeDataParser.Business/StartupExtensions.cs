@@ -17,10 +17,10 @@ namespace WarframeDataParser.Business {
             services.AddTransient<IDataFetcher, LocalDataFetcher>();
 
             // Selectors
-            services.AddTransient<IRewardSelector, RewardSelector>();
+            services.AddTransient<ISelector<IRewardSelection>, RewardSelector>();
 
             // Persers
-            services.AddTransient<IRewardParser, RewardParser>();
+            services.AddTransient<IParser<IRewardSelection>, RewardParser>();
 
             services.AddTransient<IBuilderService, BuilderService>();
 

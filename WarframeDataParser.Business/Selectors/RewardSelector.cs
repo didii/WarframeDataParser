@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace WarframeDataParser.Business.Selectors {
-    class RewardSelector : IRewardSelector {
+    /// <summary>
+    /// Selects rewards and a possible hint about their type
+    /// </summary>
+    class RewardSelector : ISelector<IRewardSelection> {
         public static string AllXPath { get; } =
             @"html/body/h3[@id='missionRewards' or @id='relicRewards' or @id='keyRewards' or @id='sortieRewards']/following-sibling::table[1]/tbody/tr/td[1]" +
             @"|html/body/h3[@id='cetusRewards' or @id='enemyBlueprintTables' or @id='miscItems']/following-sibling::table[1]/tbody/tr/td[2]" +

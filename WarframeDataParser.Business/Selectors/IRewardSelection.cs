@@ -1,6 +1,5 @@
 ﻿namespace WarframeDataParser.Business.Selectors {
-    public interface IRewardSelection {
-        string Name { get; }
+    internal interface IRewardSelection : ISelection {
         string TypeName { get; }
     }
 }

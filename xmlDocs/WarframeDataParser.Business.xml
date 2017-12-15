@@ -7,6 +7,18 @@
         <member name="M:WarframeDataParser.Business.Builder.BuilderService.Build">
             <inheritdoc />
         </member>
+        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.InsertedCount">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.UpdatedCount">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.UnchangedCount">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.Builder.BuilderResult.InvalidCount">
+            <inheritdoc />
+        </member>
         <member name="M:WarframeDataParser.Business.Builder.IBuilderService.Build">
             <summary>
             Builds the database data and returns the amount of entries that were changed
@@ -18,6 +30,23 @@
         </member>
         <member name="M:WarframeDataParser.Business.Fetcher.LocalDataFetcher.Fetch(System.String)">
             <inheritdoc />
+        </member>
+        <member name="M:WarframeDataParser.Business.Selectors.MissionSelector.Select(HtmlAgilityPack.HtmlDocument)">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.Selectors.MissionSelection.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.Selectors.MissionSelection.MissionType">
+            <inheritdoc />
+        </member>
+        <member name="P:WarframeDataParser.Business.Selectors.MissionSelection.Planet">
+            <inheritdoc />
+        </member>
+        <member name="T:WarframeDataParser.Business.Selectors.RewardSelector">
+            <summary>
+            Selects rewards and a possible hint about their type
+            </summary>
         </member>
         <member name="P:WarframeDataParser.Business.ModelValidator`1.ValidateCreate">
             <inheritdoc />

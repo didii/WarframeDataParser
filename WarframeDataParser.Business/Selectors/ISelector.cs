@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace WarframeDataParser.Business.Selectors {
-    interface IRewardSelector {
-        IEnumerable<IRewardSelection> Select(HtmlDocument document);
+    public interface ISelector<T> where T : ISelection {
+        IEnumerable<T> Select(HtmlDocument document);
     }
 }

@@ -10,6 +10,6 @@ namespace WarframeDataParser.Business.Builder {
         /// Builds the database data and returns the amount of entries that were changed
         /// </summary>
         /// <returns></returns>
-        int Build();
+        IBuilderResult Build();
     }
 }
